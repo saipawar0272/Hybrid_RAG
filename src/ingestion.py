@@ -10,7 +10,7 @@ from langchain_community.vectorstores import FAISS
 
 from src.config import (
     DATA_DIR, ARTIFACTS_DIR, FAISS_DIR, CHUNKS_FILE,
-    EMBEDDING_MODEL, CHUNK_SIZE, CHUNK_OVERLAP
+    EMBEDDING_MODEL, CHUNK_SIZE, CHUNK_OVERLAP, validate_config
 )
 
 
@@ -33,6 +33,8 @@ def load_documents():
 
 
 def build_index():
+    validate_config()
+
     source_docs = load_documents()
     if not source_docs:
         raise RuntimeError(f"No .pdf, .txt or .md documents found in {DATA_DIR}")

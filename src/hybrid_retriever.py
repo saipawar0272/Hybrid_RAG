@@ -12,7 +12,7 @@ from langchain_community.vectorstores import FAISS
 from src.config import (
     FAISS_DIR, CHUNKS_FILE, EMBEDDING_MODEL, DENSE_TOP_K,
     SPARSE_TOP_K, RRF_C, RRF_DENSE_WEIGHT, RRF_SPARSE_WEIGHT,
-    FINAL_TOP_K, ENABLE_RERANKER, RERANKER_MODEL
+    FINAL_TOP_K, ENABLE_RERANKER, RERANKER_MODEL, validate_config
 )
 
 
@@ -22,7 +22,9 @@ def tokenize(text: str):
 
 
 class HybridRetriever:
+    
     def __init__(self):
+        validate_config()
         if not FAISS_DIR.exists() or not CHUNKS_FILE.exists():
             raise RuntimeError("Index not found. Run: python -m src.ingestion")
 
