@@ -1,8 +1,25 @@
-.venv/
+# Environment variables
+.env
+
+# Python cache
 __pycache__/
 *.py[cod]
-.env
-.streamlit/
-artifacts/faiss_index/
-artifacts/chunks.jsonl
-.cache/
+
+# Virtual environments
+.pyenv/
+.venv/
+venv/
+
+# Logs
+logs/
+*.log
+
+# IDE
+.vscode/
+
+# Test cache
+.pytest_cache/
+.coverage
+
+# Generated artifacts
+artifacts/
