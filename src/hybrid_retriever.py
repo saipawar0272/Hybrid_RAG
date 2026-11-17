@@ -167,6 +167,23 @@ class HybridRetriever:
                  final_k: int = FINAL_TOP_K
     ) -> List[Document]:
 
+        #1. validate query
+
+        if not isinstance(query, str) or not query.strip():
+            raise ValueError(
+                "query must be a non-empty string"
+            )
+        #2.validate final_k
+
+        if (
+            not isinstance(final_k, int)
+            or isinstance(final_k, bool)
+            or final_k <= 0
+        ):
+            raise ValueError(
+                "final_k must be a positive integer"
+            )
+
         logger.info(
             "starting hybrid retrieval. requested final_k: %d",
             final_k

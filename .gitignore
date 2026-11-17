@@ -23,3 +23,7 @@ logs/
 
 # Generated artifacts
 artifacts/
+
+# Coverage reports
+coverage.xml
+htmlcov/
