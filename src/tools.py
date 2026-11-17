@@ -16,7 +16,11 @@ _ALLOWED_OPERATORS = {
 
 
 def _safe_eval(node):
-    if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+    if (
+        isinstance(node, ast.Constant)
+        and isinstance(node.value, (int, float))
+        and not isinstance(node.value, bool)
+    ):
         return node.value
     if isinstance(node, ast.BinOp) and type(node.op) in _ALLOWED_OPERATORS:
         left = _safe_eval(node.left)

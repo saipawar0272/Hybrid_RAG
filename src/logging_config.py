@@ -53,44 +53,54 @@ def configure_logging():
 
     logger.propagate = False
 
+
     # 4. Configure handler only once
 
-    if not logger.handlers:
 
-        # common log format
+# 4. Configure application handlers independently.
+# Do not mistake pytest's capture handlers for application handlers.
 
-        formatter = logging.Formatter(
-            fmt=(
-                 "%(asctime)s | "
-                "%(levelname)s | "
-                "%(name)s | "
-                "%(message)s"
-            ),
-            datefmt="%Y-%m-%d %H:%M:%S"
-        )
+    formatter = logging.Formatter(
+        fmt=(
+            "%(asctime)s | "
+            "%(levelname)s | "
+            "%(name)s | "
+            "%(message)s"
+        ),
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
 
-        # Console handler
+    # Add console handler only if our application console handler is absent.
+    has_console_handler = any(
+        type(handler) is logging.StreamHandler
+        for handler in logger.handlers
+    )
 
+    if not has_console_handler:
         console_handler = logging.StreamHandler()
         console_handler.setFormatter(formatter)
+        logger.addHandler(console_handler)
 
-        # Rotating file handler
+    # Add rotating file handler only if one is absent.
+    has_file_handler = any(
+        isinstance(handler, RotatingFileHandler)
+        for handler in logger.handlers
+    )
 
+    if not has_file_handler:
         file_handler = RotatingFileHandler(
             LOG_FILE,
             maxBytes=5 * 1024 * 1024,
-            backupCount = 5,
+            backupCount=5,
             encoding="utf-8"
         )
 
         file_handler.setFormatter(formatter)
-
-        # Attach handlers
-
-        logger.addHandler(console_handler)
         logger.addHandler(file_handler)
 
+
     return logger
+
 
 def get_logger(name: str):
 

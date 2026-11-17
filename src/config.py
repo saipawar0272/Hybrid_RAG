@@ -78,7 +78,7 @@ def validate_config():
     if not 0 <= RRF_SPARSE_WEIGHT <= 1 :
         errors.append('RRF_SPARSE_WEIGHT must be in between 0 and 1')
 
-    if RRF_DENSE_WEIGHT + RRF_SPARSE_WEIGHT < 0:
+    if RRF_DENSE_WEIGHT + RRF_SPARSE_WEIGHT <= 0:
         errors.append(' RRF value should not be negative')
 
 
