@@ -103,7 +103,7 @@ def test_hybrid_retrieval_pipeline_end_to_end(monkeypatch, tmp_path):
     monkeypatch.setattr(
         retriever_module,
         "RRF_C",
-        0
+        60
     )
 
     monkeypatch.setattr(

@@ -55,8 +55,7 @@ def test_calculate_handles_division_by_zero():
 def test_calculate_rejects_boolean_expression():
     result = calculate.invoke({"expression": "True"})
 
-    # Current implementation accepts True as 1 because bool is a subclass of int.
-    # This test documents a security/validation gap to fix next.
+    # Boolean values must be rejected even though bool subclasses int.
     assert result.startswith("Calculation error:")
     assert "Only basic arithmetic expressions are allowed" in result
 
