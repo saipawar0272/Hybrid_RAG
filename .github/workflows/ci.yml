@@ -35,6 +35,7 @@ jobs:
         run: |
           pytest tests -v \
             --cov=src \
+            --cov=api
             --cov-report=term-missing \
             --cov-report=xml
 
